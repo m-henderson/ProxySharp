@@ -1,5 +1,5 @@
 # ProxySharp
-An easy to use .NET library for generating usable proxy servers.
+An easy to use .NET library for generating usable, random proxy servers.
 ## Usage Example
 ![alt text](https://i.imgur.com/6sX9yXG.png)
 ## Install
