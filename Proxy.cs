@@ -10,9 +10,15 @@ namespace ProxySharp
     public class Proxy
     {
         /// <summary>
-        /// the queue the holds all of the proxies returned from the scraper
+        /// the queue tat holds all of the proxies returned from the scraper
         /// </summary>
         private static List<string> queue = new List<string>();
+
+        /// <summary>
+        /// A list of proxies that are no longer in the queue.
+        /// </summary>
+        private static readonly List<string> usedProxies = new List<string>();
+
 
         /// <summary>
         /// the static constructor that starts the scraper and adds proxies to the queue
@@ -25,10 +31,19 @@ namespace ProxySharp
         /// <summary>
         /// Gets a list of proxies that are currently in the queue.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>return a list of queued proxies</returns>
         public static List<string> GetProxies()
         {
             return queue;
+        }
+
+        /// <summary>
+        /// Gets a list of previously used proxies. The lower the index, the older the proxy.
+        /// </summary>
+        /// <returns>return a list of used proxies</returns>
+        public static List<string> GetUsedProxies()
+        {
+            return usedProxies;
         }
 
         /// <summary>
@@ -42,10 +57,11 @@ namespace ProxySharp
         }
 
         /// <summary>
-        /// Clears the queue and adds a fresh list of proxies to the queue.
+        /// Add all proxies in queue to the usedProxy list. Clears the queue then adds a fresh list of proxies to the queue.
         /// </summary>
         public static void RenewQueue()
         {
+            usedProxies.AddRange(queue);
             queue.Clear();
             queue = Scrape.ScrapeProxies();
         }
@@ -66,6 +82,7 @@ namespace ProxySharp
         public static void PopProxy()
         {
             var proxy = queue.First();
+            usedProxies.Add(proxy);
             queue.Remove(proxy);
         }
 
@@ -79,5 +96,22 @@ namespace ProxySharp
             return proxy;
         }
 
+        /// <summary>
+        /// Gets a randomly choosed single proxy from the queue.
+        /// </summary>
+        /// <returns>A proxy server IP and Port address.</returns>
+        public static string GetSingleRandomProxy()
+        {
+            Random rnd = new Random();
+
+            int randomIndex = rnd.Next(1, queue.Count);
+            var temp = queue[randomIndex];
+
+            queue.RemoveAt(randomIndex); // By moving it to the first index, the methode `PopProxy` can still be used.
+            queue.Insert(0, temp);
+
+            var proxy = queue.First();
+            return proxy;
+        }
     }
 }
