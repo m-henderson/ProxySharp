@@ -16,7 +16,7 @@ Install-Package ProxySharp -Version 1.0.0
 - `GetSingleRandomProxy()` : Gets a single randomly choosed proxy from the queue.
 - `GetUsedProxies()` :  Gets a list of previously used proxies. The lower the index, the older the proxy.
 - `RenewQueue()` : Clears the queue then adds a fresh list of proxies to the queue.
-- `RenewFilteredProxies(string filter)` : Gets a new list of proxies that are filtered by country code.
+- `RenewFilteredProxies(string countryCode, bool excludeCountry)` : Clears the queue, then adds a fresh, filtered list of proxies based on the specified country code. Allows filtering by or excluding proxies from the specified country.
 - `GetIndex(string proxy)` : Gets the index of a proxy.
 - `AddProxy(string ip, string port)` : Adds the specified proxy to the queue.
 - `PopProxy()` : Removes the first proxy in the queue.
@@ -24,4 +24,4 @@ Install-Package ProxySharp -Version 1.0.0
 - [HtmlAgilityPack](https://www.nuget.org/packages/HtmlAgilityPack/) [v1.11.62]
 - [NETStandard.Library](https://www.nuget.org/packages/NETStandard.Library) [v2.0.3]
 ## Contributor Community
-- [Discord](https://discord.gg/4Nm6B5WW)
+- [Discord](https://discord.gg/F77g42ZNFa)
