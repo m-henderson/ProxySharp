@@ -10,7 +10,7 @@ namespace ProxySharp
     public class Proxy
     {
         /// <summary>
-        /// the queue tat holds all of the proxies returned from the scraper
+        /// The queue that holds all of the proxies returned from the scraper
         /// </summary>
         private static List<string> queue = new List<string>();
 
@@ -21,7 +21,7 @@ namespace ProxySharp
 
 
         /// <summary>
-        /// the static constructor that starts the scraper and adds proxies to the queue
+        /// The static constructor that starts the scraper and adds proxies to the queue
         /// </summary>
         static Proxy()
         {
@@ -35,55 +35,6 @@ namespace ProxySharp
         public static List<string> GetProxies()
         {
             return queue;
-        }
-
-        /// <summary>
-        /// Gets a list of previously used proxies. The lower the index, the older the proxy.
-        /// </summary>
-        /// <returns>return a list of used proxies</returns>
-        public static List<string> GetUsedProxies()
-        {
-            return usedProxies;
-        }
-
-        /// <summary>
-        /// Gets the index of a proxy.
-        /// </summary>
-        /// <param name="proxy">the proxy that you want the index of</param>
-        /// <returns>return a integer that indicates the index of the given proxy</returns>
-        public static int GetIndex(string proxy)
-        {
-            return queue.IndexOf(proxy);
-        }
-
-        /// <summary>
-        /// Add all proxies in queue to the usedProxy list. Clears the queue then adds a fresh list of proxies to the queue.
-        /// </summary>
-        public static void RenewQueue()
-        {
-            usedProxies.AddRange(queue);
-            queue.Clear();
-            queue = Scrape.ScrapeProxies();
-        }
-
-        /// <summary>
-        /// Adds the specified proxy to the queue.
-        /// </summary>
-        /// <param name="ip">The ip address of the proxy to add to the queue.</param>
-        /// <param name="port">The port number of the proxy to add to the queue.</param>
-        public static void AddProxy(string ip, string port)
-        {
-            queue.Add(ip + ":" + port);
-        }
-
-        /// <summary>
-        /// Removes the first proxy in the queue.
-        /// </summary>
-        public static void PopProxy()
-        {
-            var proxy = queue.First();
-            usedProxies.Add(proxy);
-            queue.Remove(proxy);
         }
 
         /// <summary>
@@ -112,6 +63,74 @@ namespace ProxySharp
 
             var proxy = queue.First();
             return proxy;
+        }
+
+        /// <summary>
+        /// Gets a list of previously used proxies. The lower the index, the older the proxy.
+        /// </summary>
+        /// <returns>return a list of used proxies</returns>
+        public static List<string> GetUsedProxies()
+        {
+            return usedProxies;
+        }
+
+        /// <summary>
+        /// Clears the queue then adds a fresh list of proxies to the queue.
+        /// </summary>
+        public static void RenewQueue()
+        {
+            usedProxies.AddRange(queue);
+            queue.Clear();
+            queue = Scrape.ScrapeProxies(null, false);
+        }
+
+        /// <summary>
+        /// Clears the queue, then adds a fresh, filtered list of proxies based on the specified country code. Allows filtering by or excluding proxies from the specified country.
+        /// </summary>
+        /// <param name="countryCode">The two-letter code of the country to filter by (e.g., "US", "JP", "NZ").</param>
+        /// <param name="excludeCountry">Set to true to exclude all proxies that match the filter; set to false to include only proxies that match the filter.</param>
+        /// <example>
+        /// RenewFilteredProxies("US", false);
+        /// // Renews a list of proxies from the United States only.
+        /// 
+        /// RenewFilteredProxies("JP", true);
+        /// // Renews a list of proxies from all countries except Japan.
+        /// </example>
+        public static void RenewFilteredProxies(string countryCode, bool excludeCountry)
+        {
+            usedProxies.AddRange(queue);
+            queue.Clear();
+            queue = Scrape.ScrapeProxies(countryCode, excludeCountry);
+        }
+
+        /// <summary>
+        /// Gets the index of a proxy.
+        /// </summary>
+        /// <param name="proxy">the proxy that you want the index of</param>
+        /// <returns>return a integer that indicates the index of the given proxy</returns>
+        public static int GetIndex(string proxy)
+        {
+            return queue.IndexOf(proxy);
+        }
+
+        /// <summary>
+        /// Adds the specified proxy to the queue.
+        /// </summary>
+        /// <param name="ip">The ip address of the proxy to add to the queue.</param>
+        /// <param name="port">The port number of the proxy to add to the queue.</param>
+        public static void AddProxy(string ip, string port)
+        {
+            queue.Add(ip + ":" + port);
+        }
+
+        /// <summary>
+        /// Removes the first proxy in the queue.
+        /// </summary>
+        public static void PopProxy()
+        {
+            var proxy = queue.First();
+            usedProxies.Add(proxy);
+            queue.Remove(proxy);
         }
     }
 }
