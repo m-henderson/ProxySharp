@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include=".github\workflows\ci.yml" />
+    <None Include=".github\workflows\dotnet.yml" />
   </ItemGroup>
 
 </Project>
