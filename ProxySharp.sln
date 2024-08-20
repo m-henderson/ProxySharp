@@ -5,7 +5,7 @@ VisualStudioVersion = 17.10.35201.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProxySharp", "ProxySharp\ProxySharp.csproj", "{AC15A3DD-EE75-4BE2-9696-81F9005E4823}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ActionTests", "ProxySharp.Tests\ActionTests.csproj", "{84B26565-8EF9-4380-8B04-D6A645E1A686}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProxySharp.Tests", "ProxySharp.Tests\ProxySharp.Tests.csproj", "{84B26565-8EF9-4380-8B04-D6A645E1A686}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
