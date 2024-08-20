@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ProxySharp.csproj" />
+    <ProjectReference Include="..\ProxySharp\ProxySharp.csproj" />
   </ItemGroup>
 
   <ItemGroup>
