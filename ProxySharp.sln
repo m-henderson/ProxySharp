@@ -5,10 +5,6 @@ VisualStudioVersion = 17.10.35201.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProxySharp", "ProxySharp.csproj", "{AC15A3DD-EE75-4BE2-9696-81F9005E4823}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProxySharp.Tests", "ProxySharp.Tests", "{C1576E61-1693-4CA0-A079-0F71C6C62399}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ActionTests", "ProxySharp.Tests\ActionTests.csproj", "{25986AAA-462D-4153-8299-F7F09592635B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,16 +15,9 @@ Global
 		{AC15A3DD-EE75-4BE2-9696-81F9005E4823}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC15A3DD-EE75-4BE2-9696-81F9005E4823}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC15A3DD-EE75-4BE2-9696-81F9005E4823}.Release|Any CPU.Build.0 = Release|Any CPU
-		{25986AAA-462D-4153-8299-F7F09592635B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{25986AAA-462D-4153-8299-F7F09592635B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{25986AAA-462D-4153-8299-F7F09592635B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{25986AAA-462D-4153-8299-F7F09592635B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{25986AAA-462D-4153-8299-F7F09592635B} = {C1576E61-1693-4CA0-A079-0F71C6C62399}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B941F8AF-0E97-4195-A107-B84E89A0660C}
