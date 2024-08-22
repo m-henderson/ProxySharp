@@ -38,7 +38,7 @@ namespace ProxySharp
         }
 
         /// <summary>
-        /// Gets a single proxy from the queue.
+        /// Gets the first single proxy from the queue.
         /// </summary>
         /// <returns>A proxy server IP and Port address.</returns>
         public static string GetSingleProxy()
@@ -81,26 +81,36 @@ namespace ProxySharp
         {
             usedProxies.AddRange(queue);
             queue.Clear();
-            queue = Scrape.ScrapeProxies(null, false);
+            queue = Scrape.ScrapeProxies();
         }
 
         /// <summary>
-        /// Clears the queue, then adds a fresh, filtered list of proxies based on the specified country code. Allows filtering by or excluding proxies from the specified country.
+        /// Clears the queue, then adds a fresh, filtered list of proxies based on the specified country code. Allows filtering by or excluding proxies from the specified country. 
+        /// When "filterType = 2", the value1 and exclude1 are used for County and value2 and exclude2 for Port.
         /// </summary>
-        /// <param name="countryCode">The two-letter code of the country to filter by (e.g., "US", "JP", "NZ").</param>
-        /// <param name="excludeCountry">Set to true to exclude all proxies that match the filter; set to false to include only proxies that match the filter.</param>
+        /// <param name="filterType">The type of filter : 0 = Coutry filter, 1 = Port fliter, 2 = Both filter</param>
+        /// <param name="value1">The two-letter code of the country to filter by (e.g., "US", "JP", "NZ") or the port to filter.</param>
+        /// <param name="exclude1">Set to true to exclude all proxies that match the filter; set to false to include only proxies that match the filter.</param>
+        /// <param name="value2">(Optional) The port to filter. Used only with "filterType = 2"</param>
+        /// <param name="exclude2">(Optional) Set to true to exclude all port that match the filter; set to false to include only proxies that match the filter. Used only with "filterType = 2"</param>
         /// <example>
-        /// RenewFilteredProxies("US", false);
+        /// RenewFilteredProxies(0, "US", false);
         /// // Renews a list of proxies from the United States only.
         /// 
-        /// RenewFilteredProxies("JP", true);
+        /// RenewFilteredProxies(0, "JP", true);
         /// // Renews a list of proxies from all countries except Japan.
+		///
+		/// RenewFilteredProxies(1, "80", false);
+        /// // Renews a list of proxies with only port 80.
+		///
+		/// RenewFilteredProxies(2, "US", false, "80", false)
+		/// // Renews a list of proxies from US only, with port 80.
         /// </example>
-        public static void RenewFilteredProxies(string countryCode, bool excludeCountry)
+        public static void RenewFilteredProxies(int filterType, string value1, bool exclude1, string value2, bool exclude2)
         {
             usedProxies.AddRange(queue);
             queue.Clear();
-            queue = Scrape.ScrapeProxies(countryCode, excludeCountry);
+            queue = Scrape.ScrapeFilteredProxy(filterType, value1, exclude1, value2, exclude2);
         }
 
         /// <summary>
