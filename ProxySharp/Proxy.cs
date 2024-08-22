@@ -85,7 +85,7 @@ namespace ProxySharp
         }
 
         /// <summary>
-        /// Clears the queue, then adds a fresh, filtered list of proxies based on the specified country code. Allows filtering by or excluding proxies from the specified country. 
+        /// Clears the queue, then adds a fresh, filtered list of proxies based on the specified filters. Allows filtering by or excluding proxies. 
         /// When "filterType = 2", the value1 and exclude1 are used for County and value2 and exclude2 for Port.
         /// </summary>
         /// <param name="filterType">The type of filter : 0 = Coutry filter, 1 = Port fliter, 2 = Both filter</param>
