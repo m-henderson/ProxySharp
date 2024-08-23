@@ -121,31 +121,24 @@ namespace ProxySharp
         public static List<string> ScrapeFilteredProxy(int filterType = 0, string value1 = "US", bool exclude1 = false, string value2 = "80", bool exclude2 = false)
         {
             var proxiesDataTables = GetProxiesData();
-            var proxyQueue = ProxyQueuing(proxiesDataTables);
-            List<int> indexes = new List<int>();
 
             switch (filterType)
             {
                 case 0:
-                    FilterCountry(proxiesDataTables, indexes, value1, exclude1);
+                    FilterCountry(proxiesDataTables, value1, exclude1);
                     break;
 
                 case 1:
-                    FilterPort(proxiesDataTables, indexes, value1, exclude1);
+                    FilterPort(proxiesDataTables, value1, exclude1);
                     break;
 
                 case 2:
-                    FilterCountry(proxiesDataTables, indexes, value1, exclude1);
-                    FilterPort(proxiesDataTables, indexes, value2, exclude2);
+                    FilterCountry(proxiesDataTables, value1, exclude1);
+                    FilterPort(proxiesDataTables, value2, exclude2);
                     break;
             }
 
-            indexes.Reverse(); // Needed to avoids index out of range errors or non-targeted proxies deletions.
-            foreach (var index in indexes)
-            {
-                proxyQueue.RemoveAt(index);
-            }
-
+            var proxyQueue = ProxyQueuing(proxiesDataTables);
             return proxyQueue;
         }
 
@@ -153,32 +146,38 @@ namespace ProxySharp
         /// Method to filter the proxies by country code. Include only or exclude proxies that match filter.
         /// </summary>
         /// <param name="proxiesDataTables">The tuple list of proxies, country codes, and ports.</param>
-        /// <param name="indexes">The list that will store the indexes of the proxies that do not match the filter.</param>
         /// <param name="value">The country code filter</param>
         /// <param name="exclude">Bool used to determine if the proxies that match the filter should be included or excluded.</param>
-        private static void FilterCountry(List<(string, string, string)> proxiesDataTables, List<int> indexes, string value, bool exclude)
+        private static void FilterCountry(List<(string, string, string)> proxiesDataTables, string value, bool exclude)
         {
+            List<int> IndexesList = new List<int>();
             switch (exclude)
             {
                 case false:
-                    for (int i = 0; i < proxiesDataTables.Count; i++)
+                    foreach (var item in proxiesDataTables)
                     {
-                        if (proxiesDataTables[i].Item2 != value && !indexes.Contains(i))
+                        if (item.Item2 != value)
                         {
-                            indexes.Add(i);
+                            IndexesList.Add(proxiesDataTables.IndexOf(item));
                         }
                     }
                     break;
 
                 case true:
-                    for (int i = 0; i < proxiesDataTables.Count; i++)
+                    foreach (var item in proxiesDataTables)
                     {
-                        if (proxiesDataTables[i].Item2 == value && !indexes.Contains(i))
+                        if (item.Item2 == value)
                         {
-                            indexes.Add(i);
+                            IndexesList.Add(proxiesDataTables.IndexOf(item));
                         }
                     }
                     break;
+            }
+
+            IndexesList.Reverse(); // Reverse the list to avoid index out of range error.
+            foreach (var index in IndexesList)
+            {
+                proxiesDataTables.RemoveAt(index);
             }
         }
 
@@ -186,32 +185,38 @@ namespace ProxySharp
         /// Method to filter the proxies by port. Include only or exclude proxies that match filter.
         /// </summary>
         /// <param name="proxiesDataTables">The tuple list of proxies, country codes, and ports.</param>
-        /// <param name="indexes">The list that will store the indexes of the proxies that do not match the filter.</param>
         /// <param name="value">The port filter</param>
         /// <param name="exclude">Bool used to determine if the proxies that match the filter should be included or excluded.</param>
-        private static void FilterPort(List<(string, string, string)> proxiesDataTables, List<int> indexes, string value, bool exclude)
+        private static void FilterPort(List<(string, string, string)> proxiesDataTables, string value, bool exclude)
         {
+            List<int> IndexesList = new List<int>();
             switch (exclude)
             {
                 case false:
-                    for (int i = 0; i < proxiesDataTables.Count; i++)
+                    foreach (var item in proxiesDataTables)
                     {
-                        if (proxiesDataTables[i].Item3 != value && !indexes.Contains(i))
+                        if (item.Item3 != value)
                         {
-                            indexes.Add(i);
+                            IndexesList.Add(proxiesDataTables.IndexOf(item));
                         }
                     }
                     break;
 
                 case true:
-                    for (int i = 0; i < proxiesDataTables.Count; i++)
+                    foreach (var item in proxiesDataTables)
                     {
-                        if (proxiesDataTables[i].Item3 == value && !indexes.Contains(i))
+                        if (item.Item3 == value)
                         {
-                            indexes.Add(i);
+                            IndexesList.Add(proxiesDataTables.IndexOf(item));
                         }
                     }
                     break;
+            }
+
+            IndexesList.Reverse(); // Reverse the list to avoid index out of range error.
+            foreach (var index in IndexesList)
+            {
+                proxiesDataTables.RemoveAt(index);
             }
         }
 
@@ -233,3 +238,4 @@ namespace ProxySharp
         }
     }
 }
+                                                        
