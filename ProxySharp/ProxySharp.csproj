@@ -12,6 +12,8 @@
     <PackageTags>proxy; server</PackageTags>
     <Version>2.0.0.0</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <AssemblyVersion>1.0.1.1</AssemblyVersion>
+	  <FileVersion>1.0.1.1</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
