@@ -16,7 +16,7 @@ Install-Package ProxySharp -Version 1.0.0
 - `GetSingleRandomProxy()` : Gets a single randomly choosed proxy from the queue.
 - `GetUsedProxies()` :  Gets a list of previously used proxies. The lower the index, the older the proxy.
 - `RenewQueue()` : Clears the queue then adds a fresh list of proxies to the queue.
-- `RenewFilteredProxies(string countryCode, bool excludeCountry)` : Clears the queue, then adds a fresh, filtered list of proxies based on the specified country code. Allows filtering by or excluding proxies from the specified country.
+- `RenewFilteredProxies(int filterType, string value1, bool exclude1, string value2, bool exclude2)` : Clears the queue, then adds a fresh, filtered list of proxies based on the specified filters. Allows filtering by or excluding proxies. When "filterType = 2", the value1 and exclude1 are used for County and value2 and exclude2 for Port.
 - `GetIndex(string proxy)` : Gets the index of a proxy.
 - `AddProxy(string ip, string port)` : Adds the specified proxy to the queue.
 - `PopProxy()` : Removes the first proxy in the queue.
