@@ -8,7 +8,7 @@ In the usage example below we make a post request look like it is coming from an
 ---
 ## Install
 ```
-Install-Package ProxySharp -Version 1.0.0
+Install-Package ProxySharp -Version 2.0.0.0
 ```
 ## Functions
 - `GetProxies()` : Gets a list of proxies that are currently in the queue.
