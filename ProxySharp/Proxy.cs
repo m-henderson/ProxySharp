@@ -25,7 +25,8 @@ namespace ProxySharp
         /// </summary>
         static Proxy()
         {
-            queue = Scrape.ScrapeProxies();
+            Scrape.GatherProxiesData();
+            queue = Scrape.ReturnAllProxy();
         }
 
         /// <summary>
@@ -81,36 +82,64 @@ namespace ProxySharp
         {
             usedProxies.AddRange(queue);
             queue.Clear();
-            queue = Scrape.ScrapeProxies();
+            Scrape.GatherProxiesData();
+            queue = Scrape.ReturnAllProxy();
         }
 
         /// <summary>
-        /// Clears the queue, then adds a fresh, filtered list of proxies based on the specified filters. Allows filtering by or excluding proxies. 
-        /// When "filterType = 2", the value1 and exclude1 are used for County and value2 and exclude2 for Port.
+        /// This method filters the proxies by country code. Include only or exclude proxies that match filter.
         /// </summary>
-        /// <param name="filterType">The type of filter : 0 = Coutry filter, 1 = Port fliter, 2 = Both filter</param>
-        /// <param name="value1">The two-letter code of the country to filter by (e.g., "US", "JP", "NZ") or the port to filter.</param>
-        /// <param name="exclude1">Set to true to exclude all proxies that match the filter; set to false to include only proxies that match the filter.</param>
-        /// <param name="value2">(Optional) The port to filter. Used only with "filterType = 2"</param>
-        /// <param name="exclude2">(Optional) Set to true to exclude all port that match the filter; set to false to include only proxies that match the filter. Used only with "filterType = 2"</param>
-        /// <example>
-        /// RenewFilteredProxies(0, "US", false);
-        /// // Renews a list of proxies from the United States only.
-        /// 
-        /// RenewFilteredProxies(0, "JP", true);
-        /// // Renews a list of proxies from all countries except Japan.
-		///
-		/// RenewFilteredProxies(1, "80", false);
-        /// // Renews a list of proxies with only port 80.
-		///
-		/// RenewFilteredProxies(2, "US", false, "80", false)
-		/// // Renews a list of proxies from US only, with port 80.
-        /// </example>
-        public static void RenewFilteredProxies(int filterType, string value1, bool exclude1, string value2, bool exclude2)
+        /// <param name="value">The country code used to filter. (e.g : US)</param>
+        /// <param name="exclude">True for include only value; False to exlude value,</param>
+        public static void FilterQueueByCountry(string value, bool exclude)
         {
             usedProxies.AddRange(queue);
             queue.Clear();
-            queue = Scrape.ScrapeFilteredProxy(filterType, value1, exclude1, value2, exclude2);
+
+            Scrape.FilterProxiesDataTableByCountry(value, exclude);
+            queue = Scrape.ReturnAllProxy();
+        }
+
+        /// <summary>
+        /// This method filters the proxies by port. Include only or exclude proxies that match filter.
+        /// </summary>
+        /// <param name="value">The port used to filter. (e.g : 80)</param>
+        /// <param name="exclude">True for include only value; False to exlude value.</param>
+        public static void FilterQueueByPort(string value, bool exclude)
+        {
+            usedProxies.AddRange(queue);
+            queue.Clear();
+
+            Scrape.FilterProxiesDataTableByPort(value, exclude);
+            queue = Scrape.ReturnAllProxy();
+        }
+
+        /// <summary>
+        /// This method filters the proxies by anonymity level. Include only or exclude proxies that match filter.
+        /// </summary>
+        /// <param name="value">The level of anonymity used to filter; (1 = elite proxy, 2 = anonymous, 3 = transparent)</param>
+        /// <param name="exclude">True for include only value; False to exlude value.</param>
+        public static void FilterQueueByAnonymityLevel(int value, bool exclude)
+        {
+            usedProxies.AddRange(queue);
+            queue.Clear();
+
+            Scrape.FilterProxiesDataTableByAnonymity(value, exclude);
+            queue = Scrape.ReturnAllProxy();
+        }
+
+        /// <summary>
+        /// This method filters the proxies by https. Include only or exclude proxies that match filter.
+        /// </summary>
+        /// <param name="value">True = Https, False = Http</param>
+        /// <param name="exclude">True for include only value; False to exlude value</param>
+        public static void FilterQueueByHttps(bool value, bool exclude)
+        {
+            usedProxies.AddRange(queue);
+            queue.Clear();
+
+            Scrape.FilterProxiesDataTableByHttps(value, exclude);
+            queue = Scrape.ReturnAllProxy();
         }
 
         /// <summary>

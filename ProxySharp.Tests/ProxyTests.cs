@@ -47,19 +47,6 @@ namespace ProxySharp.Tests
         }
 
         [Fact]
-        public void RenewFilteredProxiesTest()
-        {
-            var temp = Proxy.GetProxies();
-            Proxy.RenewQueue();
-            var temp2 = Proxy.GetUsedProxies();
-
-            for (int i = 0; i < temp.Count; i++)
-            {
-                Assert.NotEqual(temp[i], temp2[i]);
-            }
-        }
-
-        [Fact]
         public void GetIndexTest()
         {
             var proxy = Proxy.GetSingleProxy();
