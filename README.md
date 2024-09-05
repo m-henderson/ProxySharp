@@ -25,7 +25,7 @@ Install-Package ProxySharp -Version 2.0.1
 - `PopProxy()` : Removes the first proxy in the queue.
 
 ## Specifications
-- All functions use a list of tuples from `Scrape.cs`. This list store all data related to the proxies.
+- All functions for filtering and renew uses a list of tuples from `Scrape.cs`. This list store all data related to the proxies. These proxies in `queue` are extracted from that list. 
 - `RenewQueue()` is the only function that renew this list of tuples, so it is the only way to get fresh proxies or remove applied filters.
 - `FilterQueueByXXX()` does not renew the list of tuples, it only filters the actual queue with the criteria. Allow to chain multiple filters.
 
