@@ -13,13 +13,13 @@ namespace ProxySharp
         /// <summary>
         /// The queue that holds all of the proxies data returned from the scraper
         /// </summary>
-        private static List<(string, string, string, int, bool)> ProxiesDataTable = new List<(string, string, string, int, bool)>();
+        private static readonly List<(string, string, string, int, bool)> ProxiesDataTable = new List<(string, string, string, int, bool)>();
 
         /// <summary>
         /// Scrapes the proxy data from the website.
         /// </summary>
         /// <returns>A list of tuples that contain the proxy, country code, and port.</returns>
-        public static void GatherProxiesData()
+        internal static void GatherProxiesData()
         {
             string url = "https://free-proxy-list.net/";
             HtmlWeb hw = new HtmlWeb();
@@ -159,17 +159,18 @@ namespace ProxySharp
         /// <summary>
         /// Method to filter the proxies by country code. Include only or exclude proxies that match filter.
         /// </summary>
-        /// <param name="value">The country code filter</param>
+        /// <param name="filter">The country code filter</param>
         /// <param name="exclude">Bool used to determine if the proxies that match the filter should be included or excluded.</param>
-        public static void FilterProxiesDataTableByCountry(string value, bool exclude)
+        public static void FilterProxiesDataTableByCountry(string filter, bool exclude)
         {
             List<int> IndexesList = new List<int>();
+
             switch (exclude)
             {
                 case false:
                     foreach (var item in ProxiesDataTable)
                     {
-                        if (item.Item2 != value)
+                        if (item.Item2 != filter)
                         {
                             IndexesList.Add(ProxiesDataTable.IndexOf(item));
                         }
@@ -179,7 +180,7 @@ namespace ProxySharp
                 case true:
                     foreach (var item in ProxiesDataTable)
                     {
-                        if (item.Item2 == value)
+                        if (item.Item2 == filter)
                         {
                             IndexesList.Add(ProxiesDataTable.IndexOf(item));
                         }
@@ -197,17 +198,18 @@ namespace ProxySharp
         /// <summary>                
         /// Method to filter the proxies by port. Include only or exclude proxies that match filter.
         /// </summary>
-        /// <param name="value">The port filter</param>
+        /// <param name="filter">The port filter</param>
         /// <param name="exclude">Bool used to determine if the proxies that match the filter should be included or excluded.</param>
-        public static void FilterProxiesDataTableByPort(string value, bool exclude)
+        public static void FilterProxiesDataTableByPort(string filter, bool exclude)
         {
             List<int> IndexesList = new List<int>();
+
             switch (exclude)
             {
                 case false:
                     foreach (var item in ProxiesDataTable)
                     {
-                        if (item.Item3 != value)
+                        if (item.Item3 != filter)
                         {
                             IndexesList.Add(ProxiesDataTable.IndexOf(item));
                         }
@@ -217,7 +219,7 @@ namespace ProxySharp
                 case true:
                     foreach (var item in ProxiesDataTable)
                     {
-                        if (item.Item3 == value)
+                        if (item.Item3 == filter)
                         {
                             IndexesList.Add(ProxiesDataTable.IndexOf(item));
                         }
@@ -235,18 +237,19 @@ namespace ProxySharp
         /// <summary>
         /// This method filters the proxies by anonymity level. Include only or exclude proxies that match filter.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="filter"></param>
         /// <param name="exclude"></param>
         /// <returns></returns>
-        public static void FilterProxiesDataTableByAnonymity(int value, bool exclude)
+        public static void FilterProxiesDataTableByAnonymity(int filter, bool exclude)
         {
             List<int> IndexesList = new List<int>();
+
             switch (exclude)
             {
                 case false:
                     foreach (var item in ProxiesDataTable)
                     {
-                        if (item.Item4 != value)
+                        if (item.Item4 != filter)
                         {
                             IndexesList.Add(ProxiesDataTable.IndexOf(item));
                         }
@@ -256,14 +259,14 @@ namespace ProxySharp
                 case true:
                     foreach (var item in ProxiesDataTable)
                     {
-                        if (item.Item4 == value)
+                        if (item.Item4 == filter)
                         {
                             IndexesList.Add(ProxiesDataTable.IndexOf(item));
                         }
                     }
                     break;
             }
-
+            
             IndexesList.Reverse(); // Reverse the list to avoid index out of range error.
             foreach (var index in IndexesList)
             {
@@ -271,15 +274,21 @@ namespace ProxySharp
             }
         }
 
-        public static void FilterProxiesDataTableByHttps(bool value, bool exclude)
+        /// <summary>
+        /// This method filters the proxies by https. Include only or exclude proxies that match filter.
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="exclude"></param>
+        public static void FilterProxiesDataTableByHttps(bool filter, bool exclude)
         {
             List<int> IndexesList = new List<int>();
+
             switch (exclude)
             {
                 case false:
                     foreach (var item in ProxiesDataTable)
                     {
-                        if (item.Item5 != value)
+                        if (item.Item5 != filter)
                         {
                             IndexesList.Add(ProxiesDataTable.IndexOf(item));
                         }
@@ -289,7 +298,7 @@ namespace ProxySharp
                 case true:
                     foreach (var item in ProxiesDataTable)
                     {
-                        if (item.Item5 == value)
+                        if (item.Item5 == filter)
                         {
                             IndexesList.Add(ProxiesDataTable.IndexOf(item));
                         }
