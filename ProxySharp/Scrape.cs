@@ -161,7 +161,7 @@ namespace ProxySharp
         /// </summary>
         /// <param name="filter">The country code filter</param>
         /// <param name="exclude">Bool used to determine if the proxies that match the filter should be included or excluded.</param>
-        public static void FilterProxiesDataTableByCountry(string filter, bool exclude)
+        internal static void FilterProxiesDataTableByCountry(string filter, bool exclude)
         {
             List<int> IndexesList = new List<int>();
 
@@ -240,7 +240,7 @@ namespace ProxySharp
         /// <param name="filter"></param>
         /// <param name="exclude"></param>
         /// <returns></returns>
-        public static void FilterProxiesDataTableByAnonymity(int filter, bool exclude)
+        internal static void FilterProxiesDataTableByAnonymity(int filter, bool exclude)
         {
             List<int> IndexesList = new List<int>();
 
@@ -279,7 +279,7 @@ namespace ProxySharp
         /// </summary>
         /// <param name="filter"></param>
         /// <param name="exclude"></param>
-        public static void FilterProxiesDataTableByHttps(bool filter, bool exclude)
+        internal static void FilterProxiesDataTableByHttps(bool filter, bool exclude)
         {
             List<int> IndexesList = new List<int>();
 
@@ -317,7 +317,7 @@ namespace ProxySharp
         /// Method to add all proxies to the queue whitout filtering.
         /// </summary>
         /// <returns>A list a proxies</returns>
-        public static List<string> ReturnAllProxy()
+        internal static List<string> ReturnAllProxy()
         {
             var proxyQueue = new List<string>();
 
