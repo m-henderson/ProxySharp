@@ -56,12 +56,6 @@ namespace ProxySharp.Tests
         }
 
         [Fact]
-        public void RenewFilteredProxiesTest()
-        {
-            // TODO: Implement
-        }
-
-        [Fact]
         public void GetIndexTest()
         {
             var proxy = Proxy.GetSingleProxy();
